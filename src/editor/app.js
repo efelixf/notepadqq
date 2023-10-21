@@ -715,6 +715,8 @@ function onChange(editor, changeObj) {
 
 $(document).ready(function () {
     editor = CodeMirror($(".editor")[0], {
+        keyMap: "sublime",
+        rulers: [{color: "#fcc", column: 80, lineStyle: "solid"}],
         lineNumbers: true,
         mode: { name: "" },
         highlightSelectionMatches: {style: "selectedHighlight", wordsOnly: true, delay: 25},

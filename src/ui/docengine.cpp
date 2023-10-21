@@ -797,7 +797,15 @@ bool DocEngine::writeFromString(QIODevice *io, const DecodedText &write)
 bool DocEngine::write(QIODevice *io, QSharedPointer<Editor> editor)
 {
     DecodedText info;
-    info.text = editor->value()
+    QStringList lines = editor->value().split("\n");
+
+    for (int i = 0; i < lines.size(); ++i)
+    {
+        QString& line = lines[i];
+        line = line.replace(QRegularExpression("\\s+$"), "");
+    }
+
+    info.text = lines.join("\n")
             .replace("\n", editor->endOfLineSequence());
 
     info.codec = editor->codec();

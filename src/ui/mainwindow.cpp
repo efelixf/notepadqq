@@ -1043,6 +1043,8 @@ int MainWindow::save(EditorTabWidget *tabWidget, int tab)
                 return DocEngine::saveFileResult_Canceled;
         }
 
+        currentEditor()->sendMessage("C_CMD_TRIM_TRAILING_SPACE");
+
         return m_docEngine->saveDocument(tabWidget, tab, editor->filePath());
     }
 }
@@ -1065,6 +1067,8 @@ int MainWindow::saveAs(EditorTabWidget *tabWidget, int tab, bool copy)
 
     if (filename != "") {
         m_settings.General.setLastSelectedDir(QFileInfo(filename).absolutePath());
+        currentEditor()->sendMessage("C_CMD_TRIM_TRAILING_SPACE");
+
         // Write
         return m_docEngine->saveDocument(tabWidget, tab, QUrl::fromLocalFile(filename), copy);
     } else {
